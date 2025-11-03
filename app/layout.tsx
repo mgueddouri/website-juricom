@@ -1,7 +1,29 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import { PrimeReactProvider } from "primereact/api";
+import { Poppins, Inter } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+
+// PrimeReact CSS
+import "primereact/resources/primereact.min.css";
+import "primereact/resources/themes/lara-light-indigo/theme.css";
+import "primeicons/primeicons.css";
+import "primeflex/primeflex.css";
+
+// Custom CSS
+import "./globals.css";
+import "./theme.css";
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+  variable: "--font-poppins",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+});
 
 export const metadata: Metadata = {
   title: "Juricom - Boostez votre activité",
@@ -14,11 +36,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr">
-      <body className="bg-background-light text-text-main antialiased">
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
+    <html lang="fr" className={`${poppins.variable} ${inter.variable}`}>
+      <body>
+        <PrimeReactProvider
+          value={{
+            unstyled: true,
+          }}
+        >
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+        </PrimeReactProvider>
       </body>
     </html>
   );
