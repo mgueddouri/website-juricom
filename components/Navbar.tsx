@@ -4,6 +4,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from 'primereact/button';
 import { Menubar } from 'primereact/menubar';
+import dynamic from 'next/dynamic';
+
+const LoginButton = dynamic(() => import('./LoginButton'), { ssr: false });
 
 const Navbar = () => {
   const items = [
@@ -26,9 +29,12 @@ const Navbar = () => {
   ];
 
   const end = (
-    <Link href="/api/checkout">
-      <Button label="S'abonner" />
-    </Link>
+    <div className="flex items-center gap-4">
+      <Link href="/api/checkout">
+        <Button label="S'abonner" />
+      </Link>
+      <LoginButton />
+    </div>
   );
 
   return (
@@ -37,8 +43,10 @@ const Navbar = () => {
         <Link href="/">
           <Image src="/logo.png" alt="Juricom Logo" width={150} height={40} />
         </Link>
-        <Menubar model={items} className="p-menubar" />
-        {end}
+        <div className="flex items-center gap-8">
+          <Menubar model={items} className="p-menubar" />
+          {end}
+        </div>
       </div>
     </header>
   );
