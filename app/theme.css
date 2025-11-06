@@ -1,0 +1,54 @@
+/* Juricom Custom Theme */
+:root {
+  /* Colors */
+  --primary-color: #4B3CFA;
+  --secondary-color: #6E56FF;
+  --accent-light-color: #B3A8FF;
+  --text-main-color: #1A1A1A;
+  --text-secondary-color: #666666;
+  --background-light-color: #F9FAFB;
+
+  /* Fonts */
+  --font-family: var(--font-inter);
+  --heading-font-family: var(--font-poppins);
+
+  /* Custom variables */
+  --primary-gradient: linear-gradient(90deg, #4B3CFA 0%, #6E56FF 100%);
+}
+
+body {
+  background-color: var(--background-light-color);
+  color: var(--text-main-color);
+  font-family: var(--font-family);
+  padding-top: 80px; /* Offset for fixed header */
+}
+
+.p-menubar {
+  background: none !important;
+  border: none !important;
+}
+
+.p-menubar .p-menuitem-link {
+  color: var(--text-main-color) !important;
+  font-weight: 600;
+}
+
+/* Component Overrides */
+.p-button {
+  background: var(--primary-gradient);
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: opacity 0.2s;
+}
+
+.p-button:hover {
+  opacity: 0.9;
+}
+
+.p-card {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}

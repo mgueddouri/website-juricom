@@ -1,4 +1,9 @@
+'use client';
+
+import { Card } from 'primereact/card';
+import { Button } from 'primereact/button';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 
 interface PricingCardProps {
   plan: string;
@@ -7,22 +12,39 @@ interface PricingCardProps {
 }
 
 const PricingCard = ({ plan, price, features }: PricingCardProps) => {
-  return (
-    <div className="border rounded-lg p-8 shadow-md">
-      <h3 className="text-2xl font-bold">{plan}</h3>
+  const title = (
+    <div className="text-center">
+      <h3 className="text-2xl font-bold font-heading">{plan}</h3>
       <p className="text-4xl font-bold my-4">{price}</p>
-      <ul className="text-left">
-        {features.map((feature, index) => (
-          <li key={index} className="flex items-center">
-            <svg className="w-5 h-5 text-success mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
-            {feature}
-          </li>
-        ))}
-      </ul>
-      <Link href="/api/checkout" className="bg-primary text-white py-3 px-6 rounded hover:bg-secondary mt-8 inline-block">
-        S&apos;abonner
-      </Link>
     </div>
+  );
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      viewport={{ once: true }}
+      className="h-full"
+    >
+      <Card title={title} className="text-center h-full flex flex-col">
+        <div className="flex-grow">
+          <ul className="text-left">
+            {features.map((feature, index) => (
+              <li key={index} className="flex items-center mb-2">
+                <i className="pi pi-check-circle text-success mr-2" />
+                {feature}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="mt-8">
+          <Link href="/api/checkout">
+            <Button label="Choisir ce plan" />
+          </Link>
+        </div>
+      </Card>
+    </motion.div>
   );
 };
 
