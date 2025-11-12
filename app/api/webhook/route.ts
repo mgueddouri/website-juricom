@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
   let event: Stripe.Event;
 
   try {
-    event = stripe.webhooks.constructEvent(body, sig, process.env.STRIPE_WEBHOOK_SECRET!);
+    event = stripe.webhooks.constructEvent(body, sig, process.env.STRIPE_SECRET_KEY!);
   } catch (err) {
     const errorMessage = err instanceof Error ? err.message : 'Unknown error';
     return NextResponse.json({ error: `Webhook Error: ${errorMessage}` }, { status: 400 });
