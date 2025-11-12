@@ -54,7 +54,6 @@ const LoginButton = () => {
   if (user) {
     return (
       <div className="flex items-center gap-4">
-        <span>Bienvenue, {user.name}</span>
         <Menu model={items} popup ref={menu} />
         <Button
           icon="pi pi-user"
@@ -66,9 +65,11 @@ const LoginButton = () => {
   }
 
   return (
-    <Link href="/api/auth/login">
-      <Button label="Se connecter" icon="pi pi-sign-in" />
-    </Link>
+<Button
+  label="Se connecter"
+  onClick={() => (window.location.href = '/api/auth/login')}
+  className="p-button-rounded p-button-primary"
+/>
   );
 };
 
