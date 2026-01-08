@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { resend } from '@/lib/mail';
+import { getResendClient } from '@/lib/mail';
 
 export async function POST(req: NextRequest) {
   const { name, email, message } = await req.json();
 
   try {
+    const resend = getResendClient();
     await resend.emails.send({
       from: 'contact@juricom.com',
       to: 'your-email@example.com', // Replace with your email
