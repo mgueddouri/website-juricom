@@ -4,35 +4,44 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from 'primereact/button';
 import { useEffect, useState } from 'react';
-import { Menubar } from 'primereact/menubar';
 import dynamic from 'next/dynamic';
 
 const LoginButton = dynamic(() => import('./LoginButton'), { ssr: false });
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
 
+  // Gestion du scroll
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 10);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navItems = [
-    { label: 'Accueil', href: '/' },
-    { label: 'Fonctionnalités', href: '/features' },
-    { label: 'Tarifs', href: '/pricing' },
-    { label: 'Contact', href: '/contact' },
-  ];
+  // Vérifie si l’utilisateur est connecté
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const res = await fetch('/api/auth/me');
+        setIsLoggedIn(res.ok);
+      } catch (err) {
+        console.error('Erreur de vérification utilisateur :', err);
+        setIsLoggedIn(false);
+      }
+    };
+    checkAuth();
+  }, []);
 
-  const end = (
-    <div className="flex items-center gap-4">
-      <Link href="/api/checkout">
-        <Button label="S'abonner" />
-      </Link>
-      
-    </div>
-  );
+  // Gestion du clic sur le bouton "S’abonner"
+  const handleSubscribeClick = () => {
+    if (isLoggedIn) {
+      window.location.href = '/pricing'; // vers les formules
+    } else {
+      window.location.href = '/api/auth/signup'; // ✅ redirige vers Cognito Signup
+    }
+  };
+
 
   return (
     <header
@@ -54,30 +63,26 @@ const Navbar = () => {
           />
         </Link>
 
-        {/* Navigation simple */}
+        {/* Navigation */}
         <nav className="hidden md:flex gap-8 text-[#1A1A1A] font-medium text-base">
-          {navItems.map((item) => (
-            <Link
-              key={item.label}
-              href={item.href}
-              className="hover:text-[#4B3CFA] transition-colors duration-200"
-            >
-              {item.label}
-            </Link>
-          ))}
+          <Link href="/">Accueil</Link>
+          <Link href="/features">Fonctionnalités</Link>
+          <Link href="/pricing">Tarifs</Link>
+          <Link href="/contact">Contact</Link>
         </nav>
 
-        {/* CTA */}
-        <Link href="/api/checkout">
+        {/* CTA dynamique */}
+        <div className="flex items-center gap-4">
           <Button
             label="S’abonner"
+            onClick={handleSubscribeClick}
             className="px-5 py-2 text-white font-medium rounded-full shadow-md border-0"
             style={{
               background: 'linear-gradient(90deg, #4B3CFA 0%, #6E56FF 100%)',
             }}
           />
-        </Link>
-        <LoginButton />
+          <LoginButton />
+        </div>
       </div>
     </header>
   );
