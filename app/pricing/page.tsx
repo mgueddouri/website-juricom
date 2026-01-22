@@ -7,17 +7,17 @@ export default function PricingPage() {
   return (
     <main className="bg-white text-[#1A1A1A]">
       {/* === HEADER === */}
-      <section className="py-24 text-center bg-gradient-to-b from-white to-[#F9FAFB]">
+      <section className="py-12 md:py-16 text-center bg-gradient-to-b from-white to-[#F9FAFB]">
         <div className="max-w-3xl mx-auto px-6">
-          <h1 className="text-5xl font-bold mb-4">Nos tarifs</h1>
-          <p className="text-gray-600 text-lg mb-8">
+          <h1 className="text-4xl md:text-5xl font-bold mb-3">Nos tarifs</h1>
+          <p className="text-gray-600 text-base md:text-lg mb-4">
             Choisissez le module qui correspond à votre cabinet et faites passer votre conformité au niveau supérieur.
           </p>
         </div>
       </section>
 
       {/* === TARIFS === */}
-      <section className="py-20">
+      <section className="py-12 md:py-16">
         <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-10 px-6">
           {/* === MODULE LAB === */}
           <div className="rounded-2xl p-10 bg-white shadow-sm border border-gray-100 hover:shadow-lg transition-all flex flex-col justify-between">

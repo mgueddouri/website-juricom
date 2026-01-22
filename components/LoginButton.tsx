@@ -32,14 +32,14 @@ const LoginButton = () => {
 
   const items = [
     {
-      label: 'Mon Compte',
+      label: ' Mon Compte',
       icon: 'pi pi-user',
       command: () => {
         window.location.href = '/account';
       },
     },
     {
-      label: 'Se déconnecter',
+      label: ' Se déconnecter',
       icon: 'pi pi-sign-out',
       command: () => {
         window.location.href = '/api/auth/logout';
@@ -54,7 +54,20 @@ const LoginButton = () => {
   if (user) {
     return (
       <div className="flex items-center gap-4">
-        <Menu model={items} popup ref={menu} />
+        <Menu
+          model={items}
+          popup
+          ref={menu}
+          popupAlignment="right"
+          baseZIndex={2000}
+          className="!bg-white !border !border-gray-200 !rounded-lg !shadow-lg !py-2 !w-56"
+          pt={{
+            menu: { className: '!bg-white !p-0' },
+            menuitem: { className: 'px-3 py-2' },
+            menuitemicon: { className: 'text-gray-600' },
+            menuitemtext: { className: 'text-gray-900' },
+          }}
+        />
         <Button
           icon="pi pi-user"
           className="p-button-rounded"
